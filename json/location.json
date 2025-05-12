@@ -1,0 +1,212 @@
+[
+  {
+    "hospital": "Beaumont Hospital",
+    "lat": 53.3894874,
+    "lon": -6.2247288
+  },
+  {
+    "hospital": "Cavan General Hospital",
+    "lat": 54.0010643,
+    "lon": -7.3720256
+  },
+  {
+    "hospital": "Connolly Hospital",
+    "lat": 53.388968,
+    "lon": -6.3678286
+  },
+  {
+    "hospital": "Louth County Hospital",
+    "lat": 53.9877671,
+    "lon": -6.4007829
+  },
+  {
+    "hospital": "Mater Misericordiae University Hospital",
+    "lat": 53.3592257,
+    "lon": -6.2670593
+  },
+  {
+    "hospital": "National Orthopaedic Hospital Cappagh",
+    "lat": 53.3938451,
+    "lon": -6.3267998
+  },
+  {
+    "hospital": "Our Lady of Lourdes Hospital",
+    "lat": 53.7221361,
+    "lon": -6.3542918
+  },
+  {
+    "hospital": "Our Lady's Hospital Navan",
+    "lat": 53.6501928,
+    "lon": -6.6981472
+  },
+  {
+    "hospital": "CHI at Crumlin",
+    "lat": 53.32583,
+    "lon": -6.31722
+  },
+  {
+    "hospital": "CHI at Tallaght",
+    "lat": 53.2876,
+    "lon": -6.3733
+  },
+  {
+    "hospital": "CHI at Temple Street",
+    "lat": 53.35678,
+    "lon": -6.26203
+  },
+  {
+    "hospital": "MRH Mullingar",
+    "lat": 53.53419,
+    "lon": -7.34896
+  },
+  {
+    "hospital": "MRH Portlaoise",
+    "lat": 53.0377,
+    "lon": -7.2758
+  },
+  {
+    "hospital": "MRH Tullamore",
+    "lat": 53.2736,
+    "lon": -7.4889
+  },
+  {
+    "hospital": "Naas General Hospital",
+    "lat": 53.2114125,
+    "lon": -6.6614043
+  },
+  {
+    "hospital": "St. James's Hospital",
+    "lat": 53.3401224,
+    "lon": -6.295578
+  },
+  {
+    "hospital": "St. Luke's Radiation Oncology Network",
+    "lat": 53.3884,
+    "lon": -6.2236
+  },
+  {
+    "hospital": "Tallaght University Hospital",
+    "lat": 53.2911931,
+    "lon": -6.378828
+  },
+  {
+    "hospital": "National Rehabilitation Hospital",
+    "lat": 53.2755022,
+    "lon": -6.1530321
+  },
+  {
+    "hospital": "St. Columcille's Hospital",
+    "lat": 53.2423541,
+    "lon": -6.1325172
+  },
+  {
+    "hospital": "St Luke's General Hospital Kilkenny",
+    "lat": 52.6664597,
+    "lon": -7.2628162
+  },
+  {
+    "hospital": "St. Michael's Hospital",
+    "lat": 53.2941393,
+    "lon": -6.1379489
+  },
+  {
+    "hospital": "St. Vincent's University Hospital",
+    "lat": 53.3168414,
+    "lon": -6.2127957
+  },
+  {
+    "hospital": "Tipperary University Hospital",
+    "lat": 52.3553,
+    "lon": -7.7187
+  },
+  {
+    "hospital": "UH Waterford",
+    "lat": 52.2487,
+    "lon": -7.0785
+  },
+  {
+    "hospital": "Wexford General Hospital",
+    "lat": 52.343168,
+    "lon": -6.4830221
+  },
+  {
+    "hospital": "Bantry General Hospital",
+    "lat": 51.6762727,
+    "lon": -9.4501249
+  },
+  {
+    "hospital": "Cork University Hospital",
+    "lat": 51.8833834,
+    "lon": -8.5120664
+  },
+  {
+    "hospital": "Mallow General Hospital",
+    "lat": 52.1515032,
+    "lon": -8.663696
+  },
+  {
+    "hospital": "Mercy University Hospital",
+    "lat": 51.898928,
+    "lon": -8.4824101
+  },
+  {
+    "hospital": "South Infirmary Victoria University Hospital",
+    "lat": 51.8934673,
+    "lon": -8.4637615
+  },
+  {
+    "hospital": "UH Kerry",
+    "lat": 52.2654,
+    "lon": -9.6862
+  },
+  {
+    "hospital": "Ennis Hospital",
+    "lat": 52.8510921,
+    "lon": -8.9832321
+  },
+  {
+    "hospital": "Nenagh Hospital",
+    "lat": 52.8578282,
+    "lon": -8.1910039
+  },
+  {
+    "hospital": "St. John's Hospital Limerick",
+    "lat": 52.6633618,
+    "lon": -8.6168566
+  },
+  {
+    "hospital": "UH Limerick",
+    "lat": 52.6352,
+    "lon": -8.6561
+  },
+  {
+    "hospital": "Galway University Hospital",
+    "lat": 53.2769639,
+    "lon": -9.0666823
+  },
+  {
+    "hospital": "Letterkenny University Hospital",
+    "lat": 54.9600322,
+    "lon": -7.7346358
+  },
+  {
+    "hospital": "Mayo University Hospital",
+    "lat": 53.8507519,
+    "lon": -9.3022939
+  },
+  {
+    "hospital": "Portiuncula University Hospital",
+    "lat": 53.3266924,
+    "lon": -8.2357899
+  },
+  {
+    "hospital": "Roscommon University Hospital",
+    "lat": 53.6333,
+    "lon": -8.1833
+  },
+  {
+    "hospital": "Sligo University Hospital",
+    "lat": 54.2742,
+    "lon": -8.4764
+  }
+]
