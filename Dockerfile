@@ -64,8 +64,5 @@ ENV NODE_ENV=production
 
 RUN npm install --omit=dev
 
-# Expose port
-EXPOSE 3000
-
 # Start server
 CMD ["npm", "start"]
