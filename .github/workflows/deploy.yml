@@ -23,12 +23,6 @@ jobs:
           gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: Build Docker image
-        env:
-          REGISTRY: europe-west1-docker.pkg.dev
-          PROJECT: aichallenge25
-          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
-          IMAGE: ai-challenge-frontend-docker-gcr-image
-          TAG: tag1
         run: |
           docker build \
             --build-arg NEXT_PUBLIC_FIREBASE_API_KEY="${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}" \
@@ -49,48 +43,17 @@ jobs:
             --build-arg NEXT_PUBLIC_GOOGLE_BUCKET_NAME="${{ secrets.NEXT_PUBLIC_GOOGLE_BUCKET_NAME }}" \
             --build-arg NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE="${{ secrets.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE }}" \
             --build-arg NEXT_PUBLIC_GROQ_API_KEY="${{ secrets.NEXT_PUBLIC_GROQ_API_KEY }}" \
-            -t ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG} .
+            -t europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1 .
 
       - name: Push image to Artifact Registry
-        env:
-          REGISTRY: europe-west1-docker.pkg.dev
-          PROJECT: aichallenge25
-          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
-          IMAGE: ai-challenge-frontend-docker-gcr-image
-          TAG: tag1
         run: |
-          docker push ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG}
+          docker push europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1
 
       - name: Deploy to Cloud Run
-        env:
-          REGISTRY: europe-west1-docker.pkg.dev
-          PROJECT: aichallenge25
-          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
-          IMAGE: ai-challenge-frontend-docker-gcr-image
-          TAG: tag1
-          SERVICE_NAME: ai-challenge-frontend-docker-gcr-image
-          REGION: europe-west1
         run: |
-          gcloud run deploy ${SERVICE_NAME} \
-            --image ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG} \
-            --region ${REGION} \
+          gcloud run deploy ai-challenge-frontend-docker-gcr-image \
+            --image europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1 \
+            --region europe-west1 \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars "NEXT_PUBLIC_GOOGLE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY }},\
-NEXT_PUBLIC_GOOGLE_PRIVATE_KEY_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY_ID }},\
-NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }},\
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }},\
-NEXT_PUBLIC_GOOGLE_AUTH_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_AUTH_URI }},\
-NEXT_PUBLIC_GOOGLE_TOKEN_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_TOKEN_URI }},\
-NEXT_PUBLIC_GOOGLE_AUTH_PROVIDER_CERT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_AUTH_PROVIDER_CERT_URL }},\
-NEXT_PUBLIC_GOOGLE_CLIENT_CERT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_CERT_URL }},\
-NEXT_PUBLIC_GOOGLE_BUCKET_NAME=${{ secrets.NEXT_PUBLIC_GOOGLE_BUCKET_NAME }},\
-NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE=${{ secrets.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE }},\
-NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }},\
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }},\
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }},\
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }},\
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }},\
-NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }},\
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }},\
-NEXT_PUBLIC_GROQ_API_KEY=${{ secrets.NEXT_PUBLIC_GROQ_API_KEY }}"
+            --set-env-vars "NEXT_PUBLIC_GOOGLE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY }},NEXT_PUBLIC_GOOGLE_PRIVATE_KEY_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY_ID }},NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }},NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }},NEXT_PUBLIC_GOOGLE_AUTH_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_AUTH_URI }},NEXT_PUBLIC_GOOGLE_TOKEN_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_TOKEN_URI }},NEXT_PUBLIC_GOOGLE_AUTH_PROVIDER_CERT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_AUTH_PROVIDER_CERT_URL }},NEXT_PUBLIC_GOOGLE_CLIENT_CERT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_CERT_URL }},NEXT_PUBLIC_GOOGLE_BUCKET_NAME=${{ secrets.NEXT_PUBLIC_GOOGLE_BUCKET_NAME }},NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE=${{ secrets.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE }},NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }},NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }},NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }},NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }},NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }},NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }},NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }},NEXT_PUBLIC_GROQ_API_KEY=${{ secrets.NEXT_PUBLIC_GROQ_API_KEY }}"
