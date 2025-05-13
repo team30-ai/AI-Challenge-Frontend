@@ -64,5 +64,11 @@ ENV NODE_ENV=production
 
 RUN npm install --omit=dev
 
+# Build the application
+RUN npm run build
+
+# Expose port for Cloud Run
+EXPOSE 8080
+
 # Start server
 CMD ["npm", "start"]
