@@ -22,6 +22,26 @@ interface GroupedDateRecord {
   [key: string]: string | number;
 }
 
+const knownHospitals = [
+  "Beaumont Hospital", "Cavan General Hospital", "Connolly Hospital",
+  "Louth County Hospital", "Mater Misericordiae University Hospital",
+  "National Orthopaedic Hospital Cappagh", "Our Lady of Lourdes Hospital",
+  "Our Lady's Hospital Navan", "CHI at Crumlin", "CHI at Tallaght",
+  "CHI at Temple Street", "MRH Mullingar", "MRH Portlaoise", "MRH Tullamore",
+  "Naas General Hospital", "St. James's Hospital",
+  "St. Luke's Radiation Oncology Network", "Tallaght University Hospital",
+  "National Rehabilitation Hospital", "St. Columcille's Hospital",
+  "St Luke's General Hospital Kilkenny", "St. Michael's Hospital",
+  "St. Vincent's University Hospital", "Tipperary University Hospital",
+  "UH Waterford", "Wexford General Hospital", "Bantry General Hospital",
+  "Cork University Hospital", "Mallow General Hospital", "Mercy University Hospital",
+  "South Infirmary Victoria University Hospital", "UH Kerry", "Ennis Hospital",
+  "Nenagh Hospital", "St. John's Hospital Limerick", "UH Limerick",
+  "Galway University Hospital", "Letterkenny University Hospital",
+  "Mayo University Hospital", "Portiuncula University Hospital",
+  "Roscommon University Hospital", "Sligo University Hospital"
+];
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -50,21 +70,38 @@ export default async function handler(
       },
     });
 
-
     await storage.bucket(bucketName).file(fileName).download({ destination: csvPath });
     console.log(`Downloaded CSV to ${csvPath}`);
 
+    let csvContent = fs.readFileSync(csvPath, 'utf8');
 
-    const csvContent = fs.readFileSync(csvPath, 'utf8');
+    // Repair line breaks between rows by inserting them before known hospital names
+    knownHospitals.slice(1).forEach((hospital) => {
+      const regex = new RegExp(`(?<!\\n)(${hospital})`, 'g');
+      csvContent = csvContent.replace(regex, '\n$1');
+    });
+
     const rawRecords: RawCSVRow[] = parse(csvContent, {
       columns: true,
       skip_empty_lines: true,
     });
 
-    const parsedRecords: ParsedRecord[] = rawRecords.map((row) => {
-      const cleaned: ParsedRecord = { ...row };
+    const parsedRecords: ParsedRecord[] = [];
 
-      cleaned.date = new Date(row.date).toISOString().split('T')[0];
+    rawRecords.forEach((row, index) => {
+      if (!row.date || row.date.trim() === '') {
+        console.warn(`Skipping row ${index} due to missing date:`, row);
+        return;
+      }
+
+      const parsedDate = new Date(row.date);
+      if (isNaN(parsedDate.getTime())) {
+        console.warn(`Skipping row ${index} due to invalid date:`, row.date, row);
+        return;
+      }
+
+      const cleaned: ParsedRecord = { ...row };
+      cleaned.date = parsedDate.toISOString().split('T')[0];
 
       for (const key in cleaned) {
         if (key !== 'hospital' && key !== 'date') {
@@ -72,9 +109,8 @@ export default async function handler(
         }
       }
 
-      return cleaned;
+      parsedRecords.push(cleaned);
     });
-
 
     const groupedByDate: Record<string, GroupedDateRecord> = {};
 
