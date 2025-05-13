@@ -23,6 +23,12 @@ jobs:
           gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: Build Docker image
+        env:
+          REGISTRY: europe-west1-docker.pkg.dev
+          PROJECT: aichallenge25
+          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
+          IMAGE: ai-challenge-frontend-docker-gcr-image
+          TAG: tag1
         run: |
           docker build \
             --build-arg NEXT_PUBLIC_FIREBASE_API_KEY="${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}" \
@@ -43,17 +49,31 @@ jobs:
             --build-arg NEXT_PUBLIC_GOOGLE_BUCKET_NAME="${{ secrets.NEXT_PUBLIC_GOOGLE_BUCKET_NAME }}" \
             --build-arg NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE="${{ secrets.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE }}" \
             --build-arg NEXT_PUBLIC_GROQ_API_KEY="${{ secrets.NEXT_PUBLIC_GROQ_API_KEY }}" \
-            -t europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1 .
+            -t ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG} .
 
       - name: Push image to Artifact Registry
+        env:
+          REGISTRY: europe-west1-docker.pkg.dev
+          PROJECT: aichallenge25
+          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
+          IMAGE: ai-challenge-frontend-docker-gcr-image
+          TAG: tag1
         run: |
-          docker push europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1
+          docker push ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG}
 
       - name: Deploy to Cloud Run
+        env:
+          REGISTRY: europe-west1-docker.pkg.dev
+          PROJECT: aichallenge25
+          REPOSITORY: ai-challenge-frontend-docker-gcr-repo
+          IMAGE: ai-challenge-frontend-docker-gcr-image
+          TAG: tag1
+          SERVICE_NAME: ai-challenge-frontend-docker-gcr-image
+          REGION: europe-west1
         run: |
-          gcloud run deploy ai-challenge-frontend-docker-gcr-image \
-            --image europe-west1-docker.pkg.dev/aichallenge25/ai-challenge-frontend-docker-gcr-repo/ai-challenge-frontend-docker-gcr-image:tag1 \
-            --region europe-west1 \
+          gcloud run deploy ${SERVICE_NAME} \
+            --image ${REGISTRY}/${PROJECT}/${REPOSITORY}/${IMAGE}:${TAG} \
+            --region ${REGION} \
             --platform managed \
             --allow-unauthenticated \
             --set-env-vars "NEXT_PUBLIC_GOOGLE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY }},\
