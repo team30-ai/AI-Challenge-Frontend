@@ -58,11 +58,11 @@ ENV NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_TYPE=$NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_
 
 ENV NEXT_PUBLIC_GROQ_API_KEY=$NEXT_PUBLIC_GROQ_API_KEY
 
-# Set production mode
+
 ENV NODE_ENV=production
 
-# Build Next.js app (uses the above env vars)
-RUN npm run build
+
+RUN npm install --omit=dev
 
 # Expose port
 EXPOSE 3000
