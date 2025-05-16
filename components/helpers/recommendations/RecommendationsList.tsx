@@ -2,8 +2,7 @@ import React from 'react';
 import { Hospital, generateRecommendations } from '@/services/hospitalData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Users } from 'lucide-react';
+
 
 interface RecommendationsListProps {
   hospitals: Hospital[];
@@ -43,7 +42,7 @@ const RecommendationsList: React.FC<RecommendationsListProps> = ({ hospitals }) 
         <Card key={index} className="overflow-hidden">
             <CardHeader className="bg-blue-50 pb-4">
               <CardTitle className="text-lg">
-                Recommended Transfer #{index + 1}
+                Recommendation #{index + 1}
               </CardTitle>
               <CardDescription>
                 {rec.patientCount} patient{rec.patientCount > 1 ? 's' : ''} from {rec.fromHospital.name} to {rec.toHospital.name}
@@ -101,20 +100,20 @@ const RecommendationsList: React.FC<RecommendationsListProps> = ({ hospitals }) 
                   </div>
                 </div>
                 
-                <div className="md:col-span-2 bg-blue-50 rounded-md p-4" data-id="v0wm3tqop" data-path="src/components/recommendations/RecommendationsList.tsx">
+                {/* <div className="md:col-span-2 bg-blue-50 rounded-md p-4" data-id="v0wm3tqop" data-path="src/components/recommendations/RecommendationsList.tsx">
                   <div className="flex items-center" data-id="9ix2q6kdn" data-path="src/components/recommendations/RecommendationsList.tsx">
                     <Users className="h-5 w-5 mr-2 text-blue-600" />
                     <span className="font-medium" data-id="mdptqn1k4" data-path="src/components/recommendations/RecommendationsList.tsx">Transfer {rec.patientCount} patient{rec.patientCount > 1 ? 's' : ''}</span>
                     <ArrowRight className="h-4 w-4 mx-2" />
                     <span data-id="cwgif1pm5" data-path="src/components/recommendations/RecommendationsList.tsx">Expected to reduce risk level at {rec.fromHospital.name} to Medium</span>
                   </div>
-                </div>
+                </div> */}
               </div>
-              
+{/*               
               <div className="mt-6 flex justify-end space-x-3" data-id="tv2lod406" data-path="src/components/recommendations/RecommendationsList.tsx">
                 <Button variant="outline">Dismiss</Button>
                 <Button>Confirm Transfer</Button>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         )}

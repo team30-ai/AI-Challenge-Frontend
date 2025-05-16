@@ -7,7 +7,6 @@ import { AlertTriangle, Grid, List, Loader2, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import HospitalTable from './helpers/hospitals/HospitalTable';
 import HospitalCard from './helpers/hospitals/HospitalCard';
-import CSVUploader from './helpers/hospitals/CSVUploader';
 
 const Dashboard = () => {
   const { hospitals, loading, refreshData } = useHospitals();
@@ -156,7 +155,6 @@ const Dashboard = () => {
           </div>
           
           <div data-id="zeh2isr1q" data-path="src/pages/Dashboard.tsx">
-            <CSVUploader />
             
             <Card className="mt-6">
               <CardHeader>
