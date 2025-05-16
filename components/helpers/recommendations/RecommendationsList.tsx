@@ -42,7 +42,7 @@ const RecommendationsList: React.FC<RecommendationsListProps> = ({ hospitals }) 
         <Card key={index} className="overflow-hidden">
             <CardHeader className="bg-blue-50 pb-4">
               <CardTitle className="text-lg">
-                Recommendation #{index + 1}
+                Recommendation Action #{index + 1}
               </CardTitle>
               <CardDescription>
                 {rec.patientCount} patient{rec.patientCount > 1 ? 's' : ''} from {rec.fromHospital.name} to {rec.toHospital.name}
